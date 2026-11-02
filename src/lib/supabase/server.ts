@@ -1,6 +1,5 @@
 import 'server-only'
 import { createServerClient } from '@supabase/ssr'
-import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { SUPABASE_KEY, SUPABASE_URL } from './env'
 
@@ -20,11 +19,4 @@ export async function createClient() {
       },
     },
   })
-}
-
-// Klien dengan kunci rahasia — hanya untuk mengelola akun pengurus
-export function createServiceClient() {
-  const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!key) throw new Error('SUPABASE_SECRET_KEY belum diatur')
-  return createAdminClient(SUPABASE_URL, key, { auth: { persistSession: false } })
 }

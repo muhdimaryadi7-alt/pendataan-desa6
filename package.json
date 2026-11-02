@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:migrate": "node scripts/migrate.mjs",
-    "buat-admin": "node scripts/buat-admin.mjs"
+    "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

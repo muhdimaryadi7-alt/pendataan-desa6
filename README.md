@@ -23,9 +23,8 @@ Dibangun dengan Next.js 16 (App Router), Supabase (Postgres + Auth + Storage), d
 ### 1. Buat project Supabase
 
 1. Buka [supabase.com](https://supabase.com) → **New project** (region: Southeast Asia / Singapore).
-2. **SQL Editor** → tempel isi [`supabase/schema.sql`](supabase/schema.sql) → **Run**.
-   (Atau isi `DATABASE_URL` di `.env.local` lalu jalankan `npm run db:migrate`.)
-3. **Project Settings → API Keys**: salin Project URL, publishable key, dan secret key.
+2. **SQL Editor** → jalankan berurutan: [`supabase/schema.sql`](supabase/schema.sql), lalu [`supabase/02-pengguna.sql`](supabase/02-pengguna.sql).
+3. **Project Settings → API Keys**: salin Project URL dan publishable key. Secret key **tidak** diperlukan.
 
 ### 2. Atur environment
 
@@ -33,15 +32,16 @@ Dibangun dengan Next.js 16 (App Router), Supabase (Postgres + Auth + Storage), d
 cp .env.example .env.local
 ```
 
-Isi `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, dan `SUPABASE_SECRET_KEY`.
+Isi `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
 ### 3. Buat Super Admin pertama
 
-```bash
-npm run buat-admin -- email@anda.com "PasswordKuat123" "Nama Anda"
-```
+1. Ganti email di [`supabase/super-admin-otomatis.sql`](supabase/super-admin-otomatis.sql) lalu jalankan di SQL Editor.
+2. **Authentication → Users → Add user** dengan email tersebut (centang *Auto confirm user*). Akun itu otomatis menjadi Super Admin.
 
-Setelah itu, akun pengurus lain dibuat dari menu **Pengguna** di aplikasi.
+### Menambah pengurus
+
+Buat akunnya di **Authentication → Users → Add user**, lalu di aplikasi buka menu **Pengguna** → isi nama, peran, dan RT → **Tetapkan**.
 
 ### 4. Jalankan lokal
 
@@ -55,8 +55,12 @@ Buka http://localhost:3000 (laporan publik) dan http://localhost:3000/login (pen
 ## Deploy ke Vercel
 
 1. Push repo ini ke GitHub.
-2. Di [vercel.com/new](https://vercel.com/new) → import repo → tambahkan 3 environment variable yang sama dengan `.env.local` (tanpa `DATABASE_URL`).
+2. Di [vercel.com/new](https://vercel.com/new) → import repo → tambahkan 2 environment variable yang sama dengan `.env.local` (tanpa `DATABASE_URL`).
 3. Deploy. Bagikan alamat Vercel (atau QR code-nya) ke grup WhatsApp warga.
+
+Atau tanpa GitHub, langsung dari folder ini: `npx vercel deploy --prod`.
+
+Versi yang berjalan: https://pendataan-rw01.vercel.app
 
 ## Alur penting
 
